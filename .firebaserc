@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ukraine-bali": {
+      "hosting": {
+        "bali-ukraine-main-client": [
+          "ukraine-bali"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ukraine-bali"
+  }
+}

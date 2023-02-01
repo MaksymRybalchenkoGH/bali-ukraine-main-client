@@ -91,6 +91,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "bali-ukraine-main-client:build:production",
+            "firebaseProject": "ukraine-bali",
+            "firebaseHostingSite": "ukraine-bali"
+          }
         }
       }
     }
