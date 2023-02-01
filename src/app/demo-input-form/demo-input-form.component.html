@@ -1,0 +1,17 @@
+<form style="max-width: 300px; margin: 20px;" (submit)="submit($event)">
+  <mat-form-field class="example-full-width">
+    <mat-label>Your name</mat-label>
+    <input matInput placeholder="Oles Ukrainets" value="" [formControl]="name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Leave your telegram contact</mat-label>
+    <input matInput placeholder="@loveukraine" [formControl]="telegram">
+  </mat-form-field>
+
+  <div style="display: flex; justify-content: space-between;">
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="submitRef.disabled">{{submitRef.label}}</button>
+    <button mat-stroked-button color="accent" *ngIf="submitRef.disabled" (click)="reset()">Reset</button>
+  </div>
+</form>
