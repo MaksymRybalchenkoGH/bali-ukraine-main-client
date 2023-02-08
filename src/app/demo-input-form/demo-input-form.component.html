@@ -15,3 +15,21 @@
     <button mat-stroked-button color="accent" *ngIf="submitRef.disabled" (click)="reset()">Reset</button>
   </div>
 </form>
+<div style="margin: 20px; display: flex;" *ngIf="qrData.data">
+  <qrcode
+    [qrdata]="qrData.data"
+    (qrCodeURL)="onChangeURL($event)"
+
+    [allowEmptyString]="true"
+    [ariaLabel]="'QR Code image with the following content...'"
+    [cssClass]="'center'"
+    [colorDark]="'#000000ff'"
+    [colorLight]="'#ffffffff'"
+    [elementType]="'canvas'"
+    [errorCorrectionLevel]="'M'"
+    [margin]="4"
+    [scale]="8"
+    [title]="'A custom title attribute'"
+    [width]="10"
+  ></qrcode>
+</div>

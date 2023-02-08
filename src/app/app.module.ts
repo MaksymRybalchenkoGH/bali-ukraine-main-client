@@ -19,6 +19,8 @@ import {ReactiveFormsModule} from '@angular/forms'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
 import {MatButtonModule} from '@angular/material/button'
+import {QRCodeModule} from 'angularx-qrcode'
+
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import {MatButtonModule} from '@angular/material/button'
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    QRCodeModule
   ],
   providers: [
     // ScreenTrackingService,UserTrackingService

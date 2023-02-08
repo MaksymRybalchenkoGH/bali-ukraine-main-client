@@ -11,8 +11,17 @@ export class DemoInputFormComponent {
   private readonly submitRefDefault  = {
     label: 'Submit',
     disabled: false
-
   }
+  // TODO: state management
+  // public state = {
+  //   submitted: false
+  // }
+  //
+  public qrData = {
+    data: null
+  }
+
+
   public submitRef  = this.submitRefDefault
   public name = new FormControl('', [Validators.required])
   public telegram = new FormControl('', [Validators.required])
@@ -26,13 +35,30 @@ export class DemoInputFormComponent {
     e.preventDefault()
     e.stopPropagation()
     if (this.name.valid && this.telegram.valid) {
-      this.store.collection('demo-name-telegram').add({name: this.name.value, telegram: this.telegram.value}).then(d => {
-        this.submitRef = {
-          disabled: true,
-          label: 'Success'
-        }
-      })
+
+      this.onSuccess()
+      // this.store.collection('demo-name-telegram').add({
+      //   name: this.name.value,
+      //   telegram: this.telegram.value
+      // }).then(res => this.onSuccess(res))
     }
+  }
+  private onSuccess(res?): void {
+    console.log('>> success res', res)
+
+    this.qrData.data = JSON.stringify({
+      name: this.name.value,
+      telegram: this.telegram.value
+    })
+
+    this.submitRef = {
+      disabled: true,
+      label: 'Success'
+    }
+  }
+
+  public onChangeURL(event): void {
+    console.log('changed', event)
   }
 
   public reset(): void {
