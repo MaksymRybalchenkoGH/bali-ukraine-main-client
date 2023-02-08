@@ -2,6 +2,10 @@ import { Component } from '@angular/core'
 import {AngularFirestore} from '@angular/fire/compat/firestore'
 import {FormControl, Validators} from '@angular/forms'
 
+
+
+
+
 @Component({
   selector: 'app-demo-input-form',
   templateUrl: './demo-input-form.component.html',
@@ -36,15 +40,15 @@ export class DemoInputFormComponent {
     e.stopPropagation()
     if (this.name.valid && this.telegram.valid) {
 
-      this.onSuccess()
-      // this.store.collection('demo-name-telegram').add({
-      //   name: this.name.value,
-      //   telegram: this.telegram.value
-      // }).then(res => this.onSuccess(res))
+      // this.onSuccess()
+      this.store.collection('demo-name-telegram').add({
+        name: this.name.value,
+        telegram: this.telegram.value
+      }).then(res => this.onSuccess(res))
     }
   }
   private onSuccess(res?): void {
-    console.log('>> success res', res)
+    console.log('>> success DEMO', res)
 
     this.qrData.data = JSON.stringify({
       name: this.name.value,

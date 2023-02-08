@@ -19,13 +19,19 @@ import {ReactiveFormsModule} from '@angular/forms'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input'
 import {MatButtonModule} from '@angular/material/button'
-import {QRCodeModule} from 'angularx-qrcode'
+import {QRCodeModule} from 'angularx-qrcode';
+import { UserVerificationPageComponent } from './pages/user-verification-page/user-verification-page.component'
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { LoginFormComponent } from './pages/auth-page/login-form/login-form.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoInputFormComponent
+    DemoInputFormComponent,
+    UserVerificationPageComponent,
+    AuthPageComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,3 +58,11 @@ import {QRCodeModule} from 'angularx-qrcode'
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// add users list to firestore
+// generate QR for each user add to spreadsheets
+// create authorised admin page
+// read QR data, show in this page
+// test
+//
+// store QR images in storage & sync with firestore
