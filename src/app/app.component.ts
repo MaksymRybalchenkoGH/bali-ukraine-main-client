@@ -1,4 +1,6 @@
 import {Component} from '@angular/core'
+import {AuthService} from './shared/services/auth.service'
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,13 @@ import {Component} from '@angular/core'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  title = 'bali-ukraine-main-client';
 
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  signOut () {
+    this.authService.signOut().then(e => this.router.navigate(['home']))
+  }
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn()
+  }
 }

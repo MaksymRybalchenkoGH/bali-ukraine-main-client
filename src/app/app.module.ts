@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 // import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
-// import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 // import { provideFunctions,getFunctions } from '@angular/fire/functions';
 // import { provideMessaging,getMessaging } from '@angular/fire/messaging';
@@ -23,6 +23,9 @@ import {QRCodeModule} from 'angularx-qrcode';
 import { UserVerificationPageComponent } from './pages/user-verification-page/user-verification-page.component'
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { LoginFormComponent } from './pages/auth-page/login-form/login-form.component'
+import {AuthService} from './shared/services/auth.service';
+import { HomePageComponent } from './pages/home-page/home-page.component'
+import {AngularFireAuthGuardModule} from '@angular/fire/compat/auth-guard'
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import { LoginFormComponent } from './pages/auth-page/login-form/login-form.comp
     DemoInputFormComponent,
     UserVerificationPageComponent,
     AuthPageComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -39,13 +43,14 @@ import { LoginFormComponent } from './pages/auth-page/login-form/login-form.comp
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAnalytics(() => getAnalytics()),
-    // provideAuth(() => getAuth()),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     // provideFunctions(() => getFunctions()),
     // provideMessaging(() => getMessaging()),
     // provideStorage(() => getStorage()),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthGuardModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -54,6 +59,7 @@ import { LoginFormComponent } from './pages/auth-page/login-form/login-form.comp
   ],
   providers: [
     // ScreenTrackingService,UserTrackingService
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
