@@ -49,12 +49,15 @@ export class DemoInputFormComponent {
   }
   private onSuccess(res?): void {
     console.log('>> success DEMO', res)
+    const domain = 'https://ukraine-bali.web.app/my/event-verification/'
+    const eventName = 'kochaitesia-chornobryvi'
+    const url = new URL(domain + eventName)
 
-    this.qrData.data = JSON.stringify({
-      name: this.name.value,
-      telegram: this.telegram.value
-    })
+    url.searchParams.set('email', this.name.value)
+    url.searchParams.set('telegram', this.telegram.value)
+    this.qrData.data = url.href
 
+    console.log('URL', url)
     this.submitRef = {
       disabled: true,
       label: 'Success'

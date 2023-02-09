@@ -1,7 +1,11 @@
 <h1 style="margin: 40px;">Ukraine Bali</h1>
 <br>
 <div style="display: flex; margin: 40px;">
+
+  <button mat-raised-button routerLink="/my/event-verification/123"> verify </button>
+  <button mat-raised-button routerLink="/demo-input"> QR input </button>
   <button mat-raised-button *ngIf="!isLoggedIn()" routerLink="auth"> SIGN IN </button>
+
   <button mat-raised-button (click)="signOut()"> SIGN OUT </button>
 </div>
 <router-outlet></router-outlet>
