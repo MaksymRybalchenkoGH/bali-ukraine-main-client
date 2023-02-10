@@ -36,6 +36,7 @@ const routes: Routes = [
       },
       {
         path: 'event-verification',
+        component: UserVerificationPageComponent,
         children: [
           {
             path: ':event-id',

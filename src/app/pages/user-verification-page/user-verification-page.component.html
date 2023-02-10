@@ -2,4 +2,8 @@
   <h1>Name: {{user.name}}</h1>
   <h2>email: {{user.email}}</h2>
   <h2>telegram: {{user.telegram}}</h2>
+  <hr>
+  <div style="display: flex; margin-top: 20px;" *ngIf="(inviteesList | async) as viewList">
+    <pre>{{viewList | json}}</pre>
+  </div>
 </div>
