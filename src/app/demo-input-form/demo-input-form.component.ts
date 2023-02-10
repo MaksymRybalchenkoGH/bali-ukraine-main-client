@@ -29,21 +29,19 @@ export class DemoInputFormComponent {
   public submitRef  = this.submitRefDefault
   public name = new FormControl('', [Validators.required])
   public telegram = new FormControl('', [Validators.required])
+  public email = new FormControl('', [Validators.required, Validators.email])
 
-  constructor(private store: AngularFirestore) {
-    // this.store.collection('foobar').valueChanges().subscribe(d => console.log('changes', d))
-    // this.store.collection('foobar').doc('foobar').get().subscribe(d => d.data())
-  }
+  constructor(private store: AngularFirestore) {}
 
   public submit(e: Event): void {
     e.preventDefault()
     e.stopPropagation()
-    if (this.name.valid && this.telegram.valid) {
-
+    if (this.name.valid && this.telegram.valid && this.email.valid) {
       // this.onSuccess()
       this.store.collection('demo-name-telegram').add({
         name: this.name.value,
-        telegram: this.telegram.value
+        telegram: this.telegram.value,
+        email: this.email.value
       }).then(res => this.onSuccess(res))
     }
   }
@@ -52,8 +50,9 @@ export class DemoInputFormComponent {
     const domain = 'https://ukraine-bali.web.app/my/event-verification/'
     const eventName = 'kochaitesia-chornobryvi'
     const url = new URL(domain + eventName)
-    url.searchParams.set('email', this.name.value)
+    url.searchParams.set('name', this.name.value)
     url.searchParams.set('telegram', this.telegram.value)
+    url.searchParams.set('email', this.email.value)
 
     this.qrData.data = url.href
 
