@@ -3,9 +3,6 @@ import {AngularFirestore} from '@angular/fire/compat/firestore'
 import {FormControl, Validators} from '@angular/forms'
 
 
-
-
-
 @Component({
   selector: 'app-demo-input-form',
   templateUrl: './demo-input-form.component.html',
@@ -30,6 +27,7 @@ export class DemoInputFormComponent {
   public name = new FormControl('', [Validators.required])
   public telegram = new FormControl('', [Validators.required])
   public email = new FormControl('', [Validators.required, Validators.email])
+  public amount = new FormControl('', [Validators.required])
 
   constructor(private store: AngularFirestore) {}
 
@@ -37,16 +35,15 @@ export class DemoInputFormComponent {
     e.preventDefault()
     e.stopPropagation()
     if (this.name.valid && this.telegram.valid && this.email.valid) {
-      // this.onSuccess()
-      this.store.collection('demo-name-telegram').add({
+      this.store.collection('test-db-invitees-list').add({
         name: this.name.value,
         telegram: this.telegram.value,
-        email: this.email.value
-      }).then(res => this.onSuccess(res))
+        email: this.email.value,
+        amount: this.amount.value
+      }).then(() => this.onSuccess())
     }
   }
-  private onSuccess(res?): void {
-    console.log('>> success DEMO', res)
+  private onSuccess(): void {
     const domain = 'https://ukraine-bali.web.app/my/event-verification/'
     const eventName = 'kochaitesia-chornobryvi'
     const url = new URL(domain + eventName)
@@ -56,7 +53,7 @@ export class DemoInputFormComponent {
 
     this.qrData.data = url.href
 
-    console.log('URL', url)
+    console.log('QR URL', url.href)
     this.submitRef = {
       disabled: true,
       label: 'Success'

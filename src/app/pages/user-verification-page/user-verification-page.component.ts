@@ -30,7 +30,7 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
     email: null,
     telegram: null
   }
-  private readonly collectionName = 'demo-name-telegram'
+  private readonly collectionName = 'test-db-invitees-list'
   private readonly inviteesListLocalKey = 'bali-ukraine-invitees-list'
 
   constructor(
