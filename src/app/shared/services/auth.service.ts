@@ -3,7 +3,7 @@ import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/compat/f
 import {AngularFireAuth} from '@angular/fire/compat/auth'
 import * as auth from 'firebase/auth'
 import {Router} from '@angular/router'
-import {User} from '../interfaces/user'
+import { User } from 'firebase/auth'
 
 const USER_AUTH_LS_KEY = 'bali-ukraine-user'
 @Injectable({
@@ -46,7 +46,7 @@ export class AuthService {
         this.afAuth.authState.subscribe((user) => {
           console.log('>>> signIn > this.afAuth.authState.subscribe')
           if (user) {
-            this.router.navigate(['my']);
+            this.router.navigate(['my'])
           }
         });
       })
@@ -56,12 +56,12 @@ export class AuthService {
   }
   public signOut() {
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem(USER_AUTH_LS_KEY);
-      this.router.navigate(['auth']);
+      localStorage.removeItem(USER_AUTH_LS_KEY)
+      this.router.navigate(['auth'])
     });
   }
   public isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem(USER_AUTH_LS_KEY)!);
+    const user = JSON.parse(localStorage.getItem(USER_AUTH_LS_KEY)!)
     return user !== null // && user.emailVerified !== false;
   }
 
@@ -76,23 +76,19 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['my']);
-        this.setUserData(result.user);
+        this.router.navigate(['my'])
+        this.setUserData(result.user)
       })
       .catch((error) => {
-        window.alert(error);
+        window.alert(error)
       });
   }
 
   private setUserData(user: User): Promise<void> {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
-    );
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName
-    };
+    )
+    const userData: User = {...user}
     return userRef.set(userData, {
       merge: true,
     });
