@@ -69,8 +69,10 @@ export class AppModule { }
 
 // add users list to firestore
 // generate QR for each user add to spreadsheets
-// create authorised admin page
-// read QR data, show in this page
+
+// verificate QR data
+// submit amount--
+// log errors to ui
 // test
-//
+// UI
 // store QR images in storage & sync with firestore

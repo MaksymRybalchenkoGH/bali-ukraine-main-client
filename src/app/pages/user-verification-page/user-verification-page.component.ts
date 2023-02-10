@@ -1,6 +1,6 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core'
 import {AngularFirestore} from '@angular/fire/compat/firestore'
-import {User} from '../../shared/interfaces/user'
+import {Invitee} from '../../shared/interfaces/invitee'
 import {FirebaseInteractionService} from '../../shared/services/firebase-interaction.service'
 import {ActivatedRoute} from '@angular/router'
 import {map, Observable, of, switchMap, tap} from 'rxjs'
@@ -12,8 +12,8 @@ import {map, Observable, of, switchMap, tap} from 'rxjs'
 })
 export class UserVerificationPageComponent implements OnInit, AfterContentChecked {
   // public eventName = ''
-  public currentInvitee: Observable<User> = null
-  public user: User = {
+  public currentInvitee: Observable<Invitee> = null
+  public user: Invitee = {
     uid: null,
     name: null,
     email: null,
@@ -57,14 +57,14 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
     this.changeDetector.detectChanges()
   }
 
-  private fetchInviteesList(): Observable<User[]> {
+  private fetchInviteesList(): Observable<Invitee[]> {
     const list = localStorage.getItem(this.inviteesListLocalKey)
     if (!list) {
-      return this.firebaseInteraction.getStoreCollection<User>(this.collectionName).pipe(
+      return this.firebaseInteraction.getStoreCollection<Invitee>(this.collectionName).pipe(
         tap(data => localStorage.setItem(this.inviteesListLocalKey, JSON.stringify(data)))
       )
     } else {
-      return of(JSON.parse(list) as User[])
+      return of(JSON.parse(list) as Invitee[])
     }
   }
 
