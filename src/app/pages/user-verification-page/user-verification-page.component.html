@@ -3,7 +3,16 @@
   <h2>email: {{user.email}}</h2>
   <h2>telegram: {{user.telegram}}</h2>
   <hr>
-  <div style="display: flex; margin-top: 20px;" *ngIf="(currentInvitee | async) as invitee">
-    <pre>{{invitee | json}}</pre>
-  </div>
+  <ng-container *ngIf="(currentInvitee | async) as inviteeState">
+
+    <ng-container *ngIf="inviteeState.completed; else pending">
+      <div style="display: flex; margin-top: 20px;">
+        <h2>{{inviteeState.invitee ? 'SUCCESS' : 'FAILED'}}</h2>
+      </div>
+    </ng-container>
+    <ng-template #pending>
+      <div>Loading...</div>
+    </ng-template>
+  </ng-container>
+
 </div>

@@ -3,7 +3,12 @@ import {AngularFirestore} from '@angular/fire/compat/firestore'
 import {Invitee} from '../../shared/interfaces/invitee'
 import {FirebaseInteractionService} from '../../shared/services/firebase-interaction.service'
 import {ActivatedRoute} from '@angular/router'
-import {map, Observable, of, switchMap, tap} from 'rxjs'
+import {BehaviorSubject, map, Observable, of, switchMap, tap} from 'rxjs'
+
+interface InviteeValidation {
+  completed: boolean
+  invitee: Invitee
+}
 
 @Component({
   selector: 'app-user-verification-page',
@@ -12,7 +17,13 @@ import {map, Observable, of, switchMap, tap} from 'rxjs'
 })
 export class UserVerificationPageComponent implements OnInit, AfterContentChecked {
   // public eventName = ''
-  public currentInvitee: Observable<Invitee> = null
+  private readonly inviteeValidationDefaultData: InviteeValidation = {
+    completed: false,
+    invitee: null
+  }
+  private inviteeSubject =  new BehaviorSubject<InviteeValidation>(this.inviteeValidationDefaultData)
+  public currentInvitee: Observable<InviteeValidation> = this.inviteeSubject.asObservable()
+
   public user: Invitee = {
     uid: null,
     name: null,
@@ -33,22 +44,22 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
     // this.route.params.subscribe(params => {
     //   this.eventName = params['event-id']
     // })
-
-    this.currentInvitee = this.route.queryParams.pipe(
+    this.route.queryParams.pipe(
       switchMap(params => {
         const {name, email, telegram} = params
         this.user = {name, email, telegram, uid: null}
         return this.fetchInviteesList().pipe(
           map(list => {
-            return list.find(el => el.email === email)
+            this.inviteeSubject.next({
+              completed: true,
+              invitee: list.find(el => el.email === email) ?? null
+            })
+
           })
         )
       })
-    )
+    ).subscribe()
 
-    this.fetchInviteesList().subscribe(d => {
-      console.log('OBS', d)
-    })
   }
 
   ngAfterContentChecked(): void {
