@@ -26,6 +26,7 @@ import { LoginFormComponent } from './pages/auth-page/login-form/login-form.comp
 import {AuthService} from './shared/services/auth.service';
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import {AngularFireAuthGuardModule} from '@angular/fire/compat/auth-guard'
+import {FirebaseInteractionService} from './shared/services/firebase-interaction.service'
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {AngularFireAuthGuardModule} from '@angular/fire/compat/auth-guard'
   ],
   providers: [
     // ScreenTrackingService,UserTrackingService
-    AuthService
+    AuthService,
+    FirebaseInteractionService
   ],
   bootstrap: [AppComponent]
 })

@@ -52,9 +52,9 @@ export class DemoInputFormComponent {
     const domain = 'https://ukraine-bali.web.app/my/event-verification/'
     const eventName = 'kochaitesia-chornobryvi'
     const url = new URL(domain + eventName)
-
     url.searchParams.set('email', this.name.value)
     url.searchParams.set('telegram', this.telegram.value)
+
     this.qrData.data = url.href
 
     console.log('URL', url)

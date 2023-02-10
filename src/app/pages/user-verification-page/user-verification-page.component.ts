@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core'
 import {AngularFirestore} from '@angular/fire/compat/firestore'
+import * as firebase from 'firebase/compat'
 import {map} from 'rxjs'
 import {User} from '../../shared/interfaces/user'
+import {FirebaseInteractionService} from '../../shared/services/firebase-interaction.service'
 
 @Component({
   selector: 'app-user-verification-page',
@@ -11,15 +13,17 @@ import {User} from '../../shared/interfaces/user'
 export class UserVerificationPageComponent implements OnInit {
   private readonly collectionName = 'demo-name-telegram'
 
-  constructor(private angularFirestore: AngularFirestore) {
+  constructor(private angularFirestore: AngularFirestore, private firebaseInteraction: FirebaseInteractionService) {
   }
 
   ngOnInit() {
 
-    this.angularFirestore.collection(this.collectionName).get()
-      .pipe(map(docSnapshot => docSnapshot.docs.map(el=> el.data() as User)))
-      .subscribe((data: User[])  => {
-        console.log('ddd', data)
+    this.firebaseInteraction.getStoreCollection<User>(this.collectionName).subscribe(data => {
+        console.log('LIST', data)
+      })
+
+    this.firebaseInteraction.getStoreCollectionDocByKey<User>(this.collectionName, 'telegram', '@asd').subscribe(data => {
+        console.log('KEY', data)
       })
   }
 }
