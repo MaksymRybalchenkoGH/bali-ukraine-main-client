@@ -49,7 +49,7 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
     this.route.queryParams.pipe(
       switchMap((params: Invitee) => {
         this.user = {...params}
-        return this.fetchInviteesList().pipe(
+        return this.firebaseInteraction.getStoreCollection<Invitee>(this.collectionName).pipe(
           map(list => {
             this.inviteeSubject.next({
               completed: true,
