@@ -13,13 +13,13 @@
     <mat-label>Leave your email</mat-label>
     <input matInput placeholder="my-email@loveukraine.com" [formControl]="email" type="email">
   </mat-form-field>
+
   <mat-form-field class="example-full-width">
-    <mat-label>Amout</mat-label>
-    <input matInput placeholder="my-email@loveukraine.com" [formControl]="amount" type="number">
+    <mat-label>Amount</mat-label>
+    <input matInput  [formControl]="amount" type="number" value="1">
   </mat-form-field>
 
   <div style="display: flex; justify-content: space-between;">
-
     <button mat-raised-button color="primary" type="submit" [disabled]="submitRef.disabled">{{submitRef.label}}</button>
     <button mat-stroked-button color="accent" *ngIf="submitRef.disabled" (click)="reset()">Reset</button>
   </div>

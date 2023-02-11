@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import {AngularFirestore} from '@angular/fire/compat/firestore'
 import {FormControl, Validators} from '@angular/forms'
+import {firestoreCollectionName} from '../shared/constants'
 
 
 @Component({
@@ -35,7 +36,7 @@ export class DemoInputFormComponent {
     e.preventDefault()
     e.stopPropagation()
     if (this.name.valid && this.telegram.valid && this.email.valid) {
-      this.store.collection('test-db-invitees-list').add({
+      this.store.collection(firestoreCollectionName).add({
         name: this.name.value,
         telegram: this.telegram.value,
         email: this.email.value,

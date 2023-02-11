@@ -6,8 +6,23 @@
   <ng-container *ngIf="(currentInvitee | async) as inviteeState">
 
     <ng-container *ngIf="inviteeState.completed; else pending">
-      <div style="display: flex; margin-top: 20px;">
-        <h2>{{inviteeState.invitee ? 'SUCCESS' : 'FAILED'}}</h2>
+      <div style="margin-top: 20px;">
+        <ng-container *ngIf="inviteeState.invitee && inviteeState.invitee.amount > 0">
+          <div style="display: flex; align-items: center;">
+            <h2>SUCCESS</h2>
+            <h4 style="margin-left: 20px;">{{inviteeState.invitee?.amount}} tickets lest</h4>
+          </div>
+          <div style="margin-top: 20px;">
+            <button mat-raised-button color="primary" (click)="validateTicket()"> Validate one ticket </button>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="inviteeState.invitee && inviteeState.invitee.amount === 0">
+          <h2>No tickets left</h2>
+        </ng-container>
+        <ng-container *ngIf="!inviteeState.invitee">
+          <h2>User not found</h2>
+        </ng-container>
       </div>
     </ng-container>
     <ng-template #pending>

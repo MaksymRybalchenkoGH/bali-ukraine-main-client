@@ -1,6 +1,7 @@
 export interface Invitee {
-  uid: string
+  id?: string
   email: string
   name: string
-  telegram
+  telegram: string
+  amount?: number
 }
