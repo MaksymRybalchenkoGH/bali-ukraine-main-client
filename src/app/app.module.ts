@@ -27,6 +27,8 @@ import {AuthService} from './shared/services/auth.service';
 import { HomePageComponent } from './pages/home-page/home-page.component'
 import {AngularFireAuthGuardModule} from '@angular/fire/compat/auth-guard'
 import {FirebaseInteractionService} from './shared/services/firebase-interaction.service'
+import {SpreadsheetSyncService} from './shared/services/spreadsheet-sync.service'
+import {HttpClientModule} from '@angular/common/http'
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import {FirebaseInteractionService} from './shared/services/firebase-interaction
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -61,16 +64,19 @@ import {FirebaseInteractionService} from './shared/services/firebase-interaction
   providers: [
     // ScreenTrackingService,UserTrackingService
     AuthService,
-    FirebaseInteractionService
+    FirebaseInteractionService,
+    SpreadsheetSyncService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
 // add users list to firestore
-// generate QR for each user add to spreadsheets
-
-
+// add links to Dmytro & Max
 // test
 // UI
-// store QR images in storage & sync with firestore
+
+// regenerate DB 00:00 14/02
+// client page for whole DB + filter
+
+// sync DB
