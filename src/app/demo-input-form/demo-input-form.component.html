@@ -1,4 +1,4 @@
-<form style="max-width: 300px; margin: 20px;" (submit)="submit($event)">
+<form (submit)="submit($event)">
   <mat-form-field class="example-full-width">
     <mat-label>Your name</mat-label>
     <input matInput placeholder="Oles Ukrainets" value="" [formControl]="name">
@@ -19,12 +19,14 @@
     <input matInput  [formControl]="amount" type="number" value="1">
   </mat-form-field>
 
-  <div style="display: flex; justify-content: space-between;">
-    <button mat-raised-button color="primary" type="submit" [disabled]="submitRef.disabled">{{submitRef.label}}</button>
-    <button mat-stroked-button color="accent" *ngIf="submitRef.disabled" (click)="reset()">Reset</button>
+  <div>
+    <button mat-raised-button color="primary" style="width: 100%;" type="submit" [disabled]="submitRef.disabled">
+      {{submitRef.label}}</button>
+    <button mat-stroked-button color="accent" style="width: 100%;" *ngIf="submitRef.disabled" (click)="reset()">
+      Reset</button>
   </div>
 </form>
-<div style="margin: 20px; display: flex;" *ngIf="qrData.data">
+<div style="margin: 20px; display: flex; justify-content: center;" *ngIf="qrData.data">
   <qrcode
     [qrdata]="qrData.data"
     (qrCodeURL)="onChangeURL($event)"

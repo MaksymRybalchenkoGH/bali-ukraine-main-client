@@ -24,11 +24,13 @@ import { UserVerificationPageComponent } from './pages/user-verification-page/us
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { LoginFormComponent } from './pages/auth-page/login-form/login-form.component'
 import {AuthService} from './shared/services/auth.service';
-import { HomePageComponent } from './pages/home-page/home-page.component'
+import { InviteeListPageComponent } from './pages/invitee-list-page/invitee-list-page.component'
 import {AngularFireAuthGuardModule} from '@angular/fire/compat/auth-guard'
 import {FirebaseInteractionService} from './shared/services/firebase-interaction.service'
 import {SpreadsheetSyncService} from './shared/services/spreadsheet-sync.service'
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component'
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import {HttpClientModule} from '@angular/common/http'
     UserVerificationPageComponent,
     AuthPageComponent,
     LoginFormComponent,
+    InviteeListPageComponent,
+    SettingsPageComponent,
     HomePageComponent
   ],
   imports: [

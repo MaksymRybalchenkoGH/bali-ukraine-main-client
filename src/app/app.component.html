@@ -1,12 +1,18 @@
-<h1 style="margin: 40px;">Ukraine Bali</h1>
+<h1 style="margin: 20px; font-weight: bold;">Ukraine Bali</h1>
 <br>
-<div style="display: flex; margin: 20px;">
+<div style="margin: 20px;">
+  <div style="display: flex; justify-content: space-between">
+    <button mat-raised-button *ngIf="!isLoggedIn()" routerLink="auth">Увійти</button>
+    <button mat-raised-button *ngIf="isLoggedIn()" (click)="signOut()">Вийти</button>
+    <button mat-raised-button routerLink="/demo-input">Згенерувати QR код </button>
+  </div>
+  <div>
+    <button mat-button color="primary" routerLink="/my/invitees" style="width: 100%; font-size: 20px; font-weight: bold; margin-top: 20px;">
+      Знайти у всьому списку
+    </button>
+  </div>
 
-  <button mat-raised-button routerLink="/my/event-verification/123"> verify </button>
-  <button mat-raised-button routerLink="/demo-input"> QR input </button>
-  <button mat-raised-button *ngIf="!isLoggedIn()" routerLink="auth"> SIGN IN </button>
 
-  <button mat-raised-button (click)="signOut()"> SIGN OUT </button>
 </div>
 <div class="page-wrapper">
   <router-outlet></router-outlet>

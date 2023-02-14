@@ -1,0 +1,27 @@
+<div style="margin-top: 20px; margin-bottom: 20px;">
+  <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+    <h1 style="">Список гостей</h1>
+    <button mat-raised-button color="primary" (click)="refreshList()">Оновити список</button>
+  </div>
+  <div>
+    <mat-form-field style="width: 100%">
+      <mat-label>Введіть <b>пошту</b> для пошкуку у списку</mat-label>
+      <input matInput placeholder="kokhaitesa@chornobryvi.taulan" [formControl]="search">
+    </mat-form-field>
+  </div>
+  <div class="list-wrapper">
+    <div *ngFor="let invitee of (inviteeList | async)" class="list-item">
+      <div>
+        <h4>{{invitee.name}}</h4>
+        <h4>{{invitee.email}}</h4>
+      </div>
+      <h4 style="font-weight: bold; margin-right: 10px;">{{invitee.amount}}</h4>
+    </div>
+  </div>
+</div>
+<!--      THIS BRAKES PAGE WITH NO ERROR-->
+<!--      <ng-container *ngIf="(getInviteesList() | async) as list">-->
+<!--        <div *ngFor="let invitee of list">-->
+<!--          {{invitee.email}}-->
+<!--        </div>-->
+<!--      </ng-container>-->
