@@ -1,6 +1,6 @@
 <h1 style="margin: 40px;">Ukraine Bali</h1>
 <br>
-<div style="display: flex; margin: 40px;">
+<div style="display: flex; margin: 20px;">
 
   <button mat-raised-button routerLink="/my/event-verification/123"> verify </button>
   <button mat-raised-button routerLink="/demo-input"> QR input </button>
@@ -8,4 +8,7 @@
 
   <button mat-raised-button (click)="signOut()"> SIGN OUT </button>
 </div>
-<router-outlet></router-outlet>
+<div class="page-wrapper">
+  <router-outlet></router-outlet>
+</div>
+

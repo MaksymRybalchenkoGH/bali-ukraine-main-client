@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core'
 import {AngularFirestore} from '@angular/fire/compat/firestore'
-import {from, map, Observable, skip, take, tap} from 'rxjs'
+import {from, map, Observable, take, tap} from 'rxjs'
 import {firestoreCollectionName} from '../constants'
+import {Invitee} from '../interfaces/invitee'
+import {SpreadsheetSyncService} from './spreadsheet-sync.service'
+import {HttpClient} from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseInteractionService {
+  private readonly apiKey = 'AIzaSyDM9ikfEQ0lvDx0Q7o4NNh306nQyaXrU6U'
+  private readonly sheetId = '1hdSYqDsm-vvaph51wGmA_AL2euA4CsypHhEV4kGk8KY'
 
-  constructor(private store: AngularFirestore) {
+  constructor(private store: AngularFirestore, private spreadsheetSyncService: SpreadsheetSyncService, private http: HttpClient) {
     // this.store.collection('foobar').valueChanges().subscribe(d => console.log('changes', d))
     // this.store.collection('foobar').doc('foobar').get().subscribe(d => d.data())
     // this.store.collection(this.collectionName, ref => ref.where('telegram', '==', '@asd'))
@@ -33,5 +38,34 @@ export class FirebaseInteractionService {
       take(1),
       map(snapshot => snapshot.docs.map(el=> el.data() as T))
     )
+  }
+  public syncFirebaseFromSpreadsheets() {
+    this.fetchSheetData().pipe(
+      tap(list => this.addDocumentsToCollection(list)),
+      // take(1)
+    ).subscribe()
+  }
+  private addDocumentsToCollection(docs: Invitee[]) {
+    docs.filter(el => !!el.email).forEach(d => {
+      this.store.collection(firestoreCollectionName).doc(d.email.toString()).set(d)
+    })
+  }
+  public fetchSheetData(): Observable<Invitee[]> {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${this.sheetId}/values/Sheet1?key=${this.apiKey}`
+
+    return this.http.get(url).pipe(
+      map((res: Object & {values: Array<string>}) => FirebaseInteractionService.mapDataToFirebase(res.values))
+    )
+  }
+
+  private static mapDataToFirebase(list: Array<string>): Invitee[] {
+    return list.map(el => {
+      return  {
+        name: el[1],
+        email: el[4],
+        telegram: el[6],
+        amount: +el[2]
+      }
+    })
   }
 }
