@@ -46,6 +46,7 @@ export class FirebaseInteractionService {
     ).subscribe()
   }
   private addDocumentsToCollection(docs: Invitee[]) {
+    console.log('>>>>', docs.length, docs)
     docs.filter(el => !!el.email).forEach(d => {
       this.store.collection(firestoreCollectionName).doc(d.email.toString()).set(d)
     })
@@ -61,9 +62,9 @@ export class FirebaseInteractionService {
   private static mapDataToFirebase(list: Array<string>): Invitee[] {
     return list.map(el => {
       return  {
-        name: el[1],
-        email: el[4],
-        telegram: el[6],
+        name: el[1] ?? 'N/A',
+        email: el[4].toLocaleLowerCase(),
+        telegram: el[6] ?? 'N/A',
         amount: +el[2]
       }
     })

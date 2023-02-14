@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {FirebaseInteractionService} from '../../shared/services/firebase-interaction.service'
 
 @Component({
   selector: 'app-settings-page',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class SettingsPageComponent {
 
+  constructor(private firebaseInteractionService: FirebaseInteractionService) {
+  }
+  public syncFirebase(): void {
+    this.firebaseInteractionService.syncFirebaseFromSpreadsheets()
+  }
 }

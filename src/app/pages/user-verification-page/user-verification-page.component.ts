@@ -53,7 +53,7 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
           map(list => {
             this.inviteeSubject.next({
               completed: true,
-              invitee: list.find(el => el.email === params.email) ?? null
+              invitee: list.find(el => el.email.toLocaleLowerCase() === params.email.toLocaleLowerCase()) ?? null
             })
 
           })

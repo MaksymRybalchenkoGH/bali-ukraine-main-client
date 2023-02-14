@@ -1,1 +1,1 @@
-export const firestoreCollectionName = 'lera-invitees-list'
+export const firestoreCollectionName = 'mandzyuk-invitees-list'
