@@ -24,6 +24,7 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
   }
   private inviteeSubject =  new BehaviorSubject<InviteeValidation>(this.inviteeValidationDefaultData)
   public currentInvitee: Observable<InviteeValidation> = this.inviteeSubject.asObservable()
+  public remainingTickets = 0
 
   public user: Invitee = {
     id: null,
@@ -49,11 +50,14 @@ export class UserVerificationPageComponent implements OnInit, AfterContentChecke
     this.route.queryParams.pipe(
       switchMap((params: Invitee) => {
         this.user = {...params}
+        console.log(params)
         return this.firebaseInteraction.getStoreCollection<Invitee>(this.collectionName).pipe(
           map(list => {
+
+            console.log(list.find(el => el.email.toLowerCase() === params.email.toLowerCase()))
             this.inviteeSubject.next({
               completed: true,
-              invitee: list.find(el => el.email.toLocaleLowerCase() === params.email.toLocaleLowerCase()) ?? null
+              invitee: list.find(el => el.email.toLowerCase() === params.email.toLowerCase() || params.name.toLowerCase() === el.email.toLowerCase() ) ?? null
             })
 
           })

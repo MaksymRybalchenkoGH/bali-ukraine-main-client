@@ -10,7 +10,15 @@
     </mat-form-field>
   </div>
   <div class="list-wrapper">
-    <div *ngFor="let invitee of (inviteeList | async)" class="list-item">
+    <h3 style="margin-top: 10px; margin-bottom: 10px; font-size: 18px;">Лишилось гостей <b>{{remainingTickets}}</b></h3>
+    <hr>
+    <div *ngFor="let invitee of (inviteeList | async)" class="list-item"
+         [routerLink]="['/my/event-verification/kochaitesia-chornobryvi']"
+         [queryParams]="{
+          name: invitee.name,
+          telegram: invitee.telegram,
+          email: invitee.email
+        }">
       <div>
         <h4>{{invitee.name}}</h4>
         <h4>{{invitee.email}}</h4>
